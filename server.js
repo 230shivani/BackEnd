@@ -8,6 +8,8 @@ const User = require('./models/user.model')
 
 const bcrypt = require('bcryptjs')
 
+app.use(express.json())
+
 mongoose.connect(db_config.DB_URL)
 
 const db = mongoose.connection
@@ -49,6 +51,8 @@ async function init() {
         console.log("Error while creating admin user", err.message)
     }
 }
+
+require('./routes/auth.routes')(app)
 
 app.listen(server_config.port, () => {
     console.log("Server started at port num :", server_config.port)
